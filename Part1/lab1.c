@@ -87,6 +87,7 @@ void fillArray(int *array, int len) {
     assert(array[i] == i * 3 + 2);
   }
   printf("Done!\n");
+
 }
 
 // PART 2 - Arrays
@@ -108,6 +109,11 @@ void part2() {
 
   // Q2.1: What happens if the second argument is greater
   // than the size of the array (10)?
+
+  //The code will try to access addresses out of the bounds and overwrite data.
+  //If no other thread is using the address the program may work fine without error.
+  //If there is another thread using the address and the program try to access that address
+  //there will be a segmentation error.
   fillArray(array, 10);
 
   int value = 295;
@@ -121,6 +127,9 @@ void part2() {
   // as if it were an array of a single element. What data
   // is stored in value after the following code executes?
   // Explain why the result is what it is.
+
+  //2.When treated as an an array address the &value will
+  //be the address of the first element (array[0]) so 0*3+2=2 is stored.
   fillArray(&value, 1);
 }
 
@@ -184,7 +193,7 @@ void part3() {
   // Order of operations can be confusing, so parentheses
   // generally improve readability.
 
-  // assert( student == 8 );
+  //assert( student[2] == 8 );
 }
 
 // HELPER FUNCTION - bigArrayIndex()
@@ -220,6 +229,14 @@ void part4() {
   // Q4.1: Try changing the order of the loops (switch the
   // "for" lines). The original ordering below is
   // considered "ijk".  Which loop orderings are fastest?
+  // time(i,j,k)=957881
+  // time(j,i,k)=1219696
+  // time(i,k,j)=1854553
+  // time(k,i,j)=14620370
+  // time(k,j,i)=15664000
+  // time(j,k,i)=1538593
+  // ijk is the fastest
+
   for (int i = 0; i < SIZE; i++) {
     for (int j = 0; j < SIZE; j++) {
       for (int k = 0; k < SIZE; k++) {
@@ -260,6 +277,11 @@ void part5() {
   // Valgrind is a tool for analyzing how programs
   // use memory, which is often invaluable for C and
   // C++ programming.
+  //with free statement there is no possible memory leak.
+  //Without free statement there is no memory leak in this program
+  //because the program thread ends shortly after the leak and free it automatically.
+  //But there may be memory leak if such code is used in larger projects,
+  //where the thread doesn't end shortly after the leak
   free(class_grades);
 }
 
@@ -271,6 +293,11 @@ void part5() {
 int main(int argc, char *argv[]) {
   // input checking - note that the executable name is
   // included in the argument count
+  //part1();
+  //part2();
+  //part3();
+  //part4();
+  //part5();
   if (argc != 2 || !atoi(argv[1])) {
     printf("Usage: %s <num>\n", argv[0]);
     exit(0);
