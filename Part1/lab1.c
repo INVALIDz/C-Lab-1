@@ -192,8 +192,8 @@ void part3() {
   // the condition passes.
   // Order of operations can be confusing, so parentheses
   // generally improve readability.
-
-  //assert( student[2] == 8 );
+  int* studentptr=&student;
+  assert( studentptr[2] == 8 );
 }
 
 // HELPER FUNCTION - bigArrayIndex()
@@ -277,11 +277,10 @@ void part5() {
   // Valgrind is a tool for analyzing how programs
   // use memory, which is often invaluable for C and
   // C++ programming.
-  //with free statement there is no possible memory leak.
-  //Without free statement there is no memory leak in this program
-  //because the program thread ends shortly after the leak and free it automatically.
-  //But there may be memory leak if such code is used in larger projects,
-  //where the thread doesn't end shortly after the leak
+  //with free statement there is no memory leak.
+  //Without free statement there is memory leak in this program
+  //but the program thread ends shortly after the leak and free it automatically.
+  
   free(class_grades);
 }
 
